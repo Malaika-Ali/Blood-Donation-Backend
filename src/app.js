@@ -27,9 +27,12 @@ app.use(cookieParser())
 
 
 import userRouter from './routes/user.routes.js'
+import bloodRequestRouter from './routes/bloodrequest.routes.js'
 
 // Routes declaration
 app.use('/api/v1/users', userRouter)
+app.use('/api/v1/requests', bloodRequestRouter)
+
 
 
 export {app}

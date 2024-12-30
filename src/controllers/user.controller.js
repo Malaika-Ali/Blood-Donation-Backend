@@ -101,6 +101,7 @@ const loginUser = asyncHandler(async (req, res) => {
     // send success response
 
     const { email, password } = req.body
+    console.log(`${email} ${password}`)
 
     if (!email) {
         throw new ApiError(400, "email is required")
@@ -247,6 +248,9 @@ const refreshAcccessToken = asyncHandler(async (req, res) => {
 
 
 // Get Current User
+const getCurrentUser = asyncHandler(async (req, res) => {
+    return res.status(200).json(new ApiResponse(200, req.user, "Current User fetched Successfully"))
+})
 
 
 
@@ -279,4 +283,4 @@ const refreshAcccessToken = asyncHandler(async (req, res) => {
 
 
 // export { registerUser, loginUser, logoutUser, refreshAcccessToken, changeCurrentPassword, getCurrentUser,updateAccountDetails, updateUserAvatar, updateUsercoverImage, getUserChannelProfile, getWatchHistory }
-export { registerUser, loginUser, logoutUser, refreshAcccessToken }
+export { registerUser, loginUser, logoutUser, refreshAcccessToken, getCurrentUser }
