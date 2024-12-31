@@ -10,6 +10,10 @@ const userSchema=new Schema({
         trim: true,
         index: true
     },
+    fathersName: {
+        type: String,
+        required: true,
+      },
     email:{
         type: String,
         required: [true, "Email is required!"],
@@ -36,6 +40,10 @@ const userSchema=new Schema({
         type: Number,
         trim: true,
     },
+    city: {
+        type: String,
+        required: true,
+      },
     area:{
         type: String,
         required: [true,"Area is required!"],

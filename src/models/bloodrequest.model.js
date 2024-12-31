@@ -13,10 +13,10 @@ const BloodRequestSchema = new mongoose.Schema({
 //     type: Number,
 //     required: true,
 //   },
-  fathersName: {
-    type: String,
-    required: true,
-  },
+address: {
+  type: String,
+  required: true,
+},
   CNIC: {
     type: String,
     required: true,
@@ -26,18 +26,7 @@ const BloodRequestSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  address: {
-    type: String,
-    required: true,
-  },
-  town: {
-    type: String,
-    required: true,
-  },
-  city: {
-    type: String,
-    required: true,
-  },
+ 
   image: {
     type: String, // Store the image URL or path
     // required: true,
