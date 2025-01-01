@@ -57,10 +57,6 @@ const createBloodRequest = asyncHandler(async (req, res) => {
         group: recipientBloodGroup // Match the recipient's blood group
     });
 
-    console.log(`Donors ${donors}`)
-
-
-
 
     const notifications = donors.map(donor => {
         return {

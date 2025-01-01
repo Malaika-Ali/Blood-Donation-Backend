@@ -20,7 +20,8 @@ address: {
   CNIC: {
     type: String,
     required: true,
-    match: /^[0-9]{13}$/, // CNIC format validation
+    // match: /^[0-9]{13}$/,
+    match: /^[0-9]{5}-[0-9]{7}-[0-9]$/, // CNIC format with dashes 
   },
   purpose: {
     type: String,
