@@ -5,10 +5,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { uploadOnCloudinary } from '../utils/cloudinary.js'
 import { User } from '../models/user.model.js';
 import { Notification } from '../models/notification.model.js';
-import { io } from '../app.js';
 
-import jwt from "jsonwebtoken";
-import mongoose from "mongoose";
 
 // Create a new blood request
 const createBloodRequest = asyncHandler(async (req, res) => {
@@ -77,89 +74,11 @@ const createBloodRequest = asyncHandler(async (req, res) => {
 
 
 
-
-
-    // Emit notifications to each donor
-    donors.forEach(donor => {
-        io.to(donor._id.toString()).emit('newBloodRequest', {
-            message: `New blood request for ${recipientBloodGroup} blood from ${populatedRequest.userId.name} in ${recipientArea}.`,
-            bloodRequestId: bloodRequest._id,
-            recipientData: {
-                name: populatedRequest.userId.name,
-                bloodGroup: recipientBloodGroup,
-                address: populatedRequest.address,
-                purpose: populatedRequest.purpose,
-            }
-        });
-        console.log(`notification sent successfully`)
-
-    });
-
     return res.status(201).json(new ApiResponse(201, bloodRequest, "Blood request created successfully"));
 
 });
 
 
-
-// Get donors from notifications for the current user
-// const getDonorsFromNotifications = asyncHandler(async (req, res) => {
-//     const userId = req.user._id; // Get the current user's ID from the request
-
-//     // Find notifications where the recipient's ID matches the current user's ID
-//     const notifications = await Notification.find({ donorId: userId }).populate('donorId', 'email city phoneNumber');
-
-//     if (!notifications || notifications.length === 0) {
-//         return res.status(404).json(new ApiResponse(404, [], "No notifications found for this user"));
-//     }
-
-//     // Extract donor information from notifications
-//     const donors = notifications.map(notification => ({
-//         donorId: notification.donorId._id,
-//         email: notification.donorId.email,
-//         city: notification.donorId.city,
-//         phoneNumber: notification.donorId.phoneNumber,
-//         message: notification.message,
-//         status: notification.status,
-//     }));
-
-//     console.log("finding donors")
-
-//     return res.status(200).json(new ApiResponse(200, donors, "Donors retrieved successfully"));
-// });
-
-
-// const getDonorsFromNotifications = async (req, res) => {
-//     try {
-//       const currentUserId = req.user._id; // Assuming the current user's ID is in req.user._id
-//   console.log(currentUserId)
-//       // Find notifications and populate the `bloodRequestId` to access `userId`
-//       const notifications = await Notification.find({})
-//         .populate({
-//           path: 'bloodRequestId',
-//           select: 'userId',
-//         });
-
-//     console.log(`notifications ${notifications}`)
-  
-//       // Filter notifications where the populated `userId` matches `currentUserId`
-//       const filteredNotifications = notifications.filter(notification =>
-//         notification.bloodRequestId?.userId?.toString() === currentUserId.toString()
-//       );
-  
-//       // Respond with the filtered notifications
-//       return res.status(200).json({
-//         success: true,
-//         data: filteredNotifications,
-//       });
-//     } catch (error) {
-//       console.error('Error fetching notifications:', error);
-//       return res.status(500).json({
-//         success: false,
-//         message: 'Failed to fetch notifications',
-//         error: error.message,
-//       });
-//     }
-//   };
 
 
 const getDonorsFromNotifications = async (req, res) => {
